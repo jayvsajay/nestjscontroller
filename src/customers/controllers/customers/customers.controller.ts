@@ -1,5 +1,6 @@
-import { Controller, Get, Param, ParseIntPipe, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { createCustomerdto } from 'src/customers/dtos/CreateCustomer.dto';
 import { CustomersService } from 'src/customers/services/customers/customers.service';
 
 @Controller('customers')
@@ -17,4 +18,14 @@ export class CustomersController {
            res.send({msg:"customer not found"})
        }
     }
+    @Get('')
+    getAllCustomers(){
+        return this.customersService.getCustomers();
+    }
+@Post('create')
+@UsePipes(ValidationPipe)
+createCustomer(@Body() createCustomerdto:createCustomerdto){
+console.log(createCustomerdto)
+this.customersService.createCustomer(createCustomerdto);
+}   
 }
