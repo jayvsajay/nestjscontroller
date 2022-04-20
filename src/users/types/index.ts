@@ -6,6 +6,7 @@ export interface User{
     
 }
 export class SerializedUser{
+    id:number;
     username:string;
     @Exclude()
         password:string
